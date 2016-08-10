@@ -1,0 +1,6 @@
+chocolote         7.0   16.10
+coffee            3.0    8.97
+ice              10.0   42.00
+milk              3.0    4.35
+tomatoes         13.0   12.38
+bread            31.0   59.38

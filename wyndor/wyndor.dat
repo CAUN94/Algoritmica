@@ -1,0 +1,17 @@
+set productos := puertas ventanas;
+set plantas := planta1 planta2 planta3;
+
+param tiempo_disponible :=
+planta1 4
+planta2 12
+planta3 18;
+
+param ganancia_unitaria :=
+puertas 3000
+ventanas 5000;
+
+param tiempo_produccion : 
+        puertas ventanas :=
+planta1 1       0
+planta2 0       2
+planta3 3       2 ;

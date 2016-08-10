@@ -1,0 +1,9 @@
+bread             8      1.39
+tomatoes          4      0.26
+milk              3      1.45
+coffee            3      2.99
+tomatoes          9      1.26
+bread             14      1.39
+chocolote         7      2.3
+bread             9      3.2
+ice               10     4.2
