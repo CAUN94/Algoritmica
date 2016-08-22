@@ -8,8 +8,8 @@ Created on Sun Aug 21 19:17:55 2016
 import random      
 import time as t
 
-nr_arrays=100       #nr de arrays a generar
-cant_numbers=1000   #cantidad de numeros en los arrays
+nr_arrays=10     #nr de arrays a generar
+cant_numbers=100   #cantidad de numeros en los arrays
 maximo=100          #el maximo numero que alcanza cada array
 array_arrays=[]     #array vacio
 
@@ -30,8 +30,7 @@ def bubble_sort(A): #bubble sort
                 A[i], A[i+1] = A[i+1], A[i]
                 seguir = True
                 
-    return A
-    
+    return A 
 
 def insertion_sort(A):#insertion sort
     largo = len(A)
@@ -43,13 +42,11 @@ def insertion_sort(A):#insertion sort
     
     return A
 
-
 def quicksort(A, lo, hi):#quick sort
     if lo < hi:
         p = partition(A, lo, hi)
         quicksort(A, lo, p)
         quicksort(A, p+1, hi)
-
 
 def partition(A, lo, hi):#partition
     pivot = A[lo]
@@ -66,13 +63,10 @@ def partition(A, lo, hi):#partition
             return j
         A[i], A[j] = A[j], A[i]
 
-
 def quick_sort(A):#quick sort
     quicksort(A, 0, len(A)-1)
     
     return A
-    
-
 
 def selection_sort(A):#selection sort
     largo = len(A)
@@ -85,6 +79,17 @@ def selection_sort(A):#selection sort
             A[posMin], A[posicion] = A[posicion], A[posMin]
     
     return A
+    
+def estadistic(A):#Metodo que desplega estadisticas
+    
+    promedio = sum(A)/len(A)
+    print("Promedio: ",promedio)
+    minimo = min(A)
+    print("Minimo: ",minimo)
+    maximo = max(A)
+    print("Maximo: ",maximo)
+
+    print("----------------------------------------------------")
 
 #  ciclo que crea nr_arrays arreglos con cant_numbers cantidad de numeros,
 #  cada arreglo se almacena en array_arrays
@@ -92,7 +97,6 @@ def selection_sort(A):#selection sort
 for i in range(nr_arrays):
     array = random_list(cant_numbers)
     array_arrays.append(array)
-  
 
 bubble_time=[] # arreglo donde se almacena los tiempos de bubble sort
 selection_time=[]# arreglo donde se almacena los tiempos de selection sort
@@ -102,100 +106,51 @@ insertion_time=[]# arreglo donde se almacena los tiempos de insertion sort
 # ciclo donse se recorre todos los arreglos 
 for j in range(nr_arrays):
 
-    
     lista = array_arrays[j]   #arreglo actual 
-    print("Array Nr:",j+1)    #print del arreglo actual
-    
-    print("");
-    
+
+    #bubble_sort
     start = t.time()
     A= bubble_sort(lista)
     end = t.time()
-    print("Tiempo Bubble Sort: ",end-start )
-
-    
     time=end-start
     bubble_time.append(time)    
     
-    print("Tiempo Insertion Sort: ",end-start )
-    
+    #insertion_sort
+    start = t.time()
+    A= insertion_sort(lista)
+    end = t.time()
     time=end-start
     insertion_time.append(time)      
     
+    #selection_sort
     start = t.time()
     A= selection_sort(lista)
-    end = t.time()
-    print("Tiempo Selection Sort: ",end-start )
-    
+    end = t.time()    
     time=end-start
     selection_time.append(time)      
     
+    #quick_sort
     start = t.time()
     A= quick_sort(lista)
     end = t.time()
-    print("Tiempo Quick Sort: ",end-start )
-    
     time=end-start
-    quick_time.append(time)      
-    
-    minimo = min(lista)
-    print("Minimo Valor ",minimo)
-    maximo = max (lista)
-    print("Maximo Valor",maximo)
-    promedio= sum(lista)/len(lista)
-    print ("Promedio: ",promedio)
-    
-    print("")
-    
-    
-    
-    print("----------------------------------------------------")
+    quick_time.append(time)          
 
-print("")
 print("Estadisticas de todos los algoritmos")
 print("----------------------------------------------------")
 
 print("Estadisticas Bubble Sort")
-promedio = sum(bubble_time)/len(bubble_time)
-print("Promedio: ",promedio)
-minimo = min(bubble_time)
-print("Minimo: ",minimo)
-maximo = max(bubble_time)
-print("Maximo: ",maximo)
-
-print("----------------------------------------------------")
+estadistic(bubble_time)
 
 print("Estadisticas Insertion Sort")
-promedio = sum(insertion_time)/len(insertion_time)
-print("Promedio: ",promedio)
-minimo = min(insertion_time)
-print("Minimo: ",minimo)
-maximo = max(insertion_time)
-print("Maximo: ",maximo)
-
-print("----------------------------------------------------")
-
-
+estadistic(insertion_time)
 
 print("Estadisticas Selection Sort")
-promedio = sum(selection_time)/len(selection_time)
-print("Promedio: ",promedio)
-minimo = min(selection_time)
-print("Minimo: ",minimo)
-maximo = max(selection_time)
-print("Maximo: ",maximo)
-
-print("----------------------------------------------------")
+estadistic(selection_time)
 
 print("Estadisticas Quick Sort")
-promedio = sum(quick_time)/len(quick_time)
-print("Promedio: ",promedio)
-minimo = min(quick_time)
-print("Minimo: ",minimo)
-maximo = max(quick_time)
-print("Maximo: ",maximo)
+estadistic(quick_time)
 
-print("----------------------------------------------------")
 print("----------------------------------------------------")
 print("Hecho por Cristobal Ugarte")
 
