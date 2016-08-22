@@ -1,0 +1,9 @@
+load "DSN=postgres" using=pyodbc query='SELECT food FROM foods' : FOOD=food;
+
+load "DSN=postgres" using=pyodbc query='SELECT nutr FROM nutrients' : NUTR=nutr;
+
+load "DSN=postgres" using=pyodbc query='SELECT food, cost, f_min, f_max FROM foods' : [food] cost f_min f_max;
+
+load "DSN=postgres" using=pyodbc query='SELECT nutr, n_min, n_max FROM nutrients' : [nutr] n_min n_max;
+
+load "DSN=postgres" using=pyodbc query='SELECT nutr, food, amt FROM amounts' : [nutr,food] amt;

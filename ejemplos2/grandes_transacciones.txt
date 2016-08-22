@@ -1,2 +1,7 @@
+bread             8.0    1.39
 coffee            3.0    2.99
-bread             5.0    1.39
+tomatoes          9.0    1.26
+bread            14.0    1.39
+chocolote         7.0    2.30
+bread             9.0    3.20
+ice              10.0    4.20

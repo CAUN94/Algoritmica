@@ -1,0 +1,21 @@
+option solver gurobi;
+model diet.mod;
+
+param ConnectionStr symbolic = "DSN=postgres"; 
+#DSN esel Data Source Name configurado en el sistema para que apunte a la base de datos de interes
+#en mi caso de llama 'postgres'
+
+table dietfoods "ODBC" (ConnectionStr) "foods":
+   food <- [food], cost IN, f_min IN, f_max IN,
+   buy OUT, buy.rc ~ buy_rc OUT, {j in food} buy[j]/f_max[j] ~ buy_frac;
+
+table dietnutrs IN "ODBC" (ConnectionStr) "nutrients": nutr <- [nutr], n_min, n_max;
+table dietAmts IN "ODBC" (ConnectionStr) "amounts": [nutr, food], amt;
+
+read table dietfoods;
+read table dietnutrs;
+read table dietAmts;
+                  
+solve;
+
+write table dietfoods;
