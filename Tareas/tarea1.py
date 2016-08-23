@@ -2,20 +2,19 @@
 """
 Created on Sun Aug 21 19:17:55 2016
 
-@author: Cristóbal
+@author: Cristóbal Ugarte Nuñez
 """
-
 import random      
 import time as t
 
-nr_arrays=10     #nr de arrays a generar
-cant_numbers=100   #cantidad de numeros en los arrays
+nr_arrays=100       #nr de arrays a generar
+cant_numbers=1000   #cantidad de numeros en los arrays
 maximo=100          #el maximo numero que alcanza cada array
 array_arrays=[]     #array vacio
 
-def random_list(x): #metodo que crear los arrays
+def random_array(cant_numbers): #metodo que crea los arrays con valores aleatorios
     array=[]
-    for i in range(x):
+    for i in range(cant_numbers):
         array.append(random.randrange(1,maximo+1,1))
     
     return array
@@ -85,9 +84,9 @@ def estadistic(A):#Metodo que desplega estadisticas
     promedio = sum(A)/len(A)
     print("Promedio: ",promedio)
     minimo = min(A)
-    print("Minimo: ",minimo)
+    print("Minimo:   ",minimo)
     maximo = max(A)
-    print("Maximo: ",maximo)
+    print("Maximo:   ",maximo)
 
     print("----------------------------------------------------")
 
@@ -95,18 +94,18 @@ def estadistic(A):#Metodo que desplega estadisticas
 #  cada arreglo se almacena en array_arrays
             
 for i in range(nr_arrays):
-    array = random_list(cant_numbers)
+    array = random_array(cant_numbers)
     array_arrays.append(array)
 
-bubble_time=[] # arreglo donde se almacena los tiempos de bubble sort
+bubble_time=[]   # arreglo donde se almacena los tiempos de bubble sort
 selection_time=[]# arreglo donde se almacena los tiempos de selection sort
-quick_time=[]   # arreglo donde se almacena los tiempos de quick sort
+quick_time=[]    # arreglo donde se almacena los tiempos de quick sort
 insertion_time=[]# arreglo donde se almacena los tiempos de insertion sort
 
 # ciclo donse se recorre todos los arreglos 
 for j in range(nr_arrays):
 
-    lista = array_arrays[j]   #arreglo actual 
+    lista = array_arrays[j]#arreglo actual 
 
     #bubble_sort
     start = t.time()
@@ -134,25 +133,28 @@ for j in range(nr_arrays):
     A= quick_sort(lista)
     end = t.time()
     time=end-start
-    quick_time.append(time)          
+    quick_time.append(time)    
 
+#array con todos los arreglos asociados con el nombre de su algoritmo
+algoritmos = [
+    {"Nombre": "Bubble Sort","array": bubble_time},
+    {"Nombre": "Insertion Sort","array": insertion_time},
+    {"Nombre": "Selection Sort","array": selection_time},
+    {"Nombre": "Quick Sort","array": quick_time}
+]      
+
+#print algoritmos
+print("")
 print("Estadisticas de todos los algoritmos")
 print("----------------------------------------------------")
 
-print("Estadisticas Bubble Sort")
-estadistic(bubble_time)
-
-print("Estadisticas Insertion Sort")
-estadistic(insertion_time)
-
-print("Estadisticas Selection Sort")
-estadistic(selection_time)
-
-print("Estadisticas Quick Sort")
-estadistic(quick_time)
+#ciclo para leer los algoritmos, sin importar la cantidad de alogritmos que sean
+for j in range(len(algoritmos)):
+    nombre = algoritmos[j]["Nombre"]
+    array = algoritmos[j]["array"]
+    print('Estadisticas {0}'.format(nombre))    
+    estadistic(array)
 
 print("----------------------------------------------------")
-print("Hecho por Cristobal Ugarte")
-
-
-
+print("Hecho por Cristobal Ugarte Nuñez")
+print("")
