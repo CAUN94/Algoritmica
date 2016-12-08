@@ -7,8 +7,8 @@ Created on Sun Aug 21 19:17:55 2016
 import random      
 import time as t
 
-nr_arrays=100       #nr de arrays a generar
-cant_numbers=1000   #cantidad de numeros en los arrays
+nr_arrays=10       #nr de arrays a generar
+cant_numbers=100   #cantidad de numeros en los arrays
 maximo=100          #el maximo numero que alcanza cada array
 array_arrays=[]     #array vacio
 
@@ -106,35 +106,41 @@ insertion_time=[]# arreglo donde se almacena los tiempos de insertion sort
 for j in range(nr_arrays):
 
     lista = array_arrays[j]#arreglo actual 
-
+    print(lista)
+    print("")
     #bubble_sort
     start = t.time()
     A= bubble_sort(lista)
     end = t.time()
     time=end-start
-    bubble_time.append(time)    
-    
+    bubble_time.append(time)   
+    print(lista)
+    print("")
     #insertion_sort
     start = t.time()
     A= insertion_sort(lista)
     end = t.time()
     time=end-start
     insertion_time.append(time)      
-    
+    print(lista)
+    print("")
     #selection_sort
     start = t.time()
     A= selection_sort(lista)
     end = t.time()    
     time=end-start
     selection_time.append(time)      
-    
+    print(lista)
+    print("")
     #quick_sort
     start = t.time()
     A= quick_sort(lista)
     end = t.time()
     time=end-start
     quick_time.append(time)    
-
+    print(lista)
+    print("")
+    print("")
 #array con todos los arreglos asociados con el nombre de su algoritmo
 algoritmos = [
     {"Nombre": "Bubble Sort","array": bubble_time},

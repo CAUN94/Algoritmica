@@ -1,23 +1,27 @@
 # -*- coding: utf-8 -*-
-import math as m
+
 import matplotlib.pyplot as plt
 
-N = 4
+
+from matplotlib.colors import ListedColormap
+
+
+N = 10
 reinas = []
 opciones = ['Limpiar', 'Agregar reina', 'Eliminar reina']
 columnas = [chr(i) for i in range(ord('A'), ord('A')+N)]
 filas = [str(i) for i in range(1, N+1)]
-colores = ['black', 'white', 'grey', 'green', 'red']
+colores = ['Ivory', 'Wheat', 'Gold', 'FireBrick']
+solver = []
+inicio = []
 
+print ("")
 
 def maneja_reinas(reinas, acc, fil, col):
     conflicto = False
     victoria = False
 
-    if fil in filas and col in columnas:
-        reina = (filas.index(fil), columnas.index(col))
-    elif fil in range(N) and col in range(N):
-        reina = (fil, col)
+    reina = (fil, col)
 
     if acc == 'Limpiar':
         reinas = []
@@ -52,7 +56,6 @@ def maneja_reinas(reinas, acc, fil, col):
     # marcar cada reina e informar si es amenazada
     for x, y in reinas:
         if (tablero[x][y] == 2):
-            # print 'Reina en ({},{}) es amenazada por otra reina'.format(x, y)
             conflicto = True
             tablero[x][y] = 4
         else:
@@ -60,25 +63,35 @@ def maneja_reinas(reinas, acc, fil, col):
 
     # verificar la condicion de exito
     if not conflicto and len(reinas) == N:
-        tablero = [[3 for i in xrange(N)] for i in xrange(N)]
         victoria = True
+   
     return victoria, tablero
 
 
-def muestra_reinas(tablero, ax):
-    ax.matshow(tablero, origin='lower', extent=(0, N, 0, N),
-               vmin=1, vmax=4, picker=1)
+def prepara_imagen(tablero, ax):
+    img = ax.matshow(tablero, extent=(0, N, 0, N), origin='lower',
+                     vmin=1, vmax=4, interpolation='none', aspect=1,
+                     cmap=ListedColormap(colores, 'indexed'))
+
+    ax.xaxis.tick_bottom()
+
     ax.xaxis.set_ticks(range(0, N), minor=False)
+    ax.xaxis.set_ticklabels([], minor=False)
     ax.xaxis.set_ticks([0.5+i for i in xrange(0, N)], minor=True)
     ax.xaxis.set_ticklabels(columnas, minor=True)
-    ax.xaxis.set_ticklabels([], minor=False)
-    ax.xaxis.tick_bottom()
+
     ax.yaxis.set_ticks(range(0, N), minor=False)
+    ax.yaxis.set_ticklabels([], minor=False)
     ax.yaxis.set_ticks([0.5+i for i in xrange(0, N)], minor=True)
     ax.yaxis.set_ticklabels(filas, minor=True)
-    ax.yaxis.set_ticklabels([], minor=False)
-    plt.grid(color='y', linestyle='-', linewidth=1)
-    plt.draw()
+
+    ax.tick_params(axis='both', which='both', length=0)
+    ax.grid(color='Gold', linestyle='-', linewidth=1)
+    for spine in ax.spines.values():
+        spine.set_edgecolor('Gold')
+        spine.set_linewidth(3)
+
+    return img
 
 
 def onclose(event):
@@ -86,28 +99,65 @@ def onclose(event):
     fig.canvas.stop_event_loop()
     plt.close()
     fin = True
-
-#def IA():
     
+
+def solver(N):
+    
+   
+
+        
+        for i in range(N):
+            for j in range(N):
+                vic, tab = maneja_reinas(reinas, 'Agregar reina', i, j)
+                img_reinas.set_data(tab)
+                plt.draw()
+                if vic:
+                    fig.text(
+                        0.5, 0.5, 'Felicitaciones!', color='orange', size='xx-large',
+                        family='humor sans', ha='center', va='center', alpha=0.5,
+                        bbox=dict(facecolor='ivory', edgecolor='orange', boxstyle='round')
+                    )
+                    plt.draw()
+                    plt.ginput()  
+                   
+                if  tab[i][j]==4:
+               
+                    if i in range(N) and j in range(N):
+                        vic, tab = maneja_reinas(reinas, 'Agregar reina', i, j)
+                        
+
+      
+
+
+                
+            
+        
+                
+
+        
     
     
 
 
 if __name__ == "__main__":
     plt.ioff()
+
     fig = plt.figure()
     ax = fig.add_subplot(111)
     fig.canvas.mpl_connect('close_event', onclose)
 
     (f, c) = ('', '')
     fin, tab = maneja_reinas(reinas, 'Limpiar', f, c)
-    muestra_reinas(tab, ax)
+    img_reinas = prepara_imagen(tab, ax)
+    plt.draw()
 
     fin = False
-    while not fin:
-        res = plt.ginput()
-        if len(res) == 1:
-            (f, c) = (int(m.floor(res[0][1])), int(m.floor(res[0][0])))
-            if f in range(N) and c in range(N):
-                fin, tab = maneja_reinas(reinas, 'Agregar reina', f, c)
-                muestra_reinas(tab, ax)
+    vic = False
+   
+    while not fin and not vic:
+        
+        
+        solver(N)
+
+
+ 

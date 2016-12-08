@@ -11,7 +11,7 @@ MAX_NUM = 1000000
 MAX_INT = 100000
 secreto = r.randint(1, MAX_NUM)
 
-Numero=MAX_NUM/2 #Numero que se elige al preguntar
+number=MAX_NUM/2 #Numero que se elige al preguntar
 
 def solver(number,state,intento): #metodo que decide el siguiente numero
 
